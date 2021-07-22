@@ -1,0 +1,54 @@
+.searchBar
+    display: flex
+    align-items: center
+    flex-direction: column
+    .searchFieled
+        width: 100%
+        position: relative
+        margin-bottom: 10px
+        &__input
+            width: 100%
+            height: 25px
+            padding-right: 27px
+            padding-left: 10px
+            border: none
+            &:focus
+                outline: none
+        &__btn
+            width: 18px
+            height: 18px
+            position: absolute
+            top: 4px
+            right: 4px
+            background-color: transparent
+            background-image: url('./icons/search.svg')
+            background-size: contain
+            background-repeat: no-repeat
+            border: none
+            cursor: pointer
+    &__selects
+        display: flex
+        width: 100%
+        &_category
+            margin-right: 20px
+            span
+                margin-right: 5px
+                font-size: 14px
+                font-weight: 500
+                color: #fff
+            select
+                height: 25px
+                border: none
+                &:focus
+                    outline: none
+        &_sorting
+            span
+                font-size: 14px
+                font-weight: 500
+                color: #fff
+                margin-right: 5px
+            select
+                height: 25px
+                border: none
+                &:focus
+                    outline: none

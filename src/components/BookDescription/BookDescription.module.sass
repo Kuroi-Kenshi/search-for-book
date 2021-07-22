@@ -1,0 +1,54 @@
+.bookDescription
+    height: 100%
+    padding: 0 30px
+    .wrapper
+        display: flex
+        justify-content: space-between
+        max-width: 1160px
+        margin: auto
+    .goBackBtn
+        position: fixed
+        left: 40px
+        bottom: 40px
+    &__img
+        padding: 30px 30px
+        margin-right: 30px
+        img
+            position: sticky
+            top: 30px
+            max-width: 250px
+            min-width: 150px
+            width: 100%
+    &__noImg
+        width: 100px
+        height: 300px
+    &__text
+        flex-shrink: 3
+        padding: 20px 20px 20px 0
+        text-align: justify
+        min-width: 350px
+        h2
+            margin: 15px 0
+        span
+            display: block
+            font-weight: 700
+            margin-bottom: 10px
+            font-style: italic
+        span:nth-child(1)
+            font-size: 12px
+            color: gray
+            font-weight: 500
+        li
+            list-style-position: inside
+
+@media ( max-width:  700px)
+    .bookDescription
+        .wrapper
+            justify-content: center
+            flex-wrap: wrap
+        &__text
+            min-width: auto
+        .goBackBtn
+            position: absolute
+            left: 10px
+            top: 255px
