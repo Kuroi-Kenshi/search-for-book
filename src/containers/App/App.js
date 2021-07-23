@@ -4,9 +4,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from '@components/Header';
 import BooksList from '@components/BooksList';
 import BookDescription from '@components/BookDescription';
+import { addBooksData, clearBooksData } from '@store/actions';
 import { getData } from '@utils/network';
 import { getUrl } from '@utils/getUrl';
-import { addBooksData, clearBooksData } from '@store/actions';
 
 import s from './App.module.sass';
 
@@ -14,15 +14,21 @@ function App() {
   const dispatch = useDispatch();
   const formData = useSelector((state) => state.formDataReducer);
   const [numberOfBooks, setNumberOfBooks] = useState(0);
-  const url = getUrl(formData);
+  const [loader, setLoader] = useState(false);
+  const url = getUrl({ formData });
+
   useEffect(() => {
+    setLoader(true);
     dispatch(clearBooksData());
     getData(url)
       .then((data) => {
         setNumberOfBooks(data.totalItems);
-        dispatch(addBooksData(data.items));
+        if (data.totalItems !== 0) {
+          dispatch(addBooksData(data.items));
+        }
       })
-      .catch((error) => console.error(error));
+      .catch((error) => console.error(error))
+      .finally(() => setLoader(false));
   }, [formData]);
 
   return (
@@ -33,7 +39,13 @@ function App() {
           <Route
             path="/"
             exact
-            render={() => <BooksList numberOfBooks={numberOfBooks} />}
+            render={() => (
+              <BooksList
+                numberOfBooks={numberOfBooks}
+                loader={loader}
+                setLoader={setLoader}
+              />
+            )}
           />
           <Route path="/book/:id" exact component={BookDescription} />
         </Switch>

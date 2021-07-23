@@ -2,6 +2,7 @@
 import { memo } from 'react'
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import s from './BookCard.module.sass';
 
 const BookCard = ({ id, authors, categories, imageLink, title }) => {

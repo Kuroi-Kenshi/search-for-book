@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getData } from '@utils/network';
@@ -6,16 +6,17 @@ import { getUrl } from '@utils/getUrl';
 import { addBooksData } from '@store/actions';
 import BookCard from '@components/BookCard'
 import Loader from '@components/Loader'
+import ScrollUpBtn from '@components/ScrollUpBtn'
+
 import s from './BooksList.module.sass';
 
-const BooksList = ({ numberOfBooks }) => {
+const BooksList = ({ numberOfBooks, loader, setLoader }) => {
     const dispatch = useDispatch()
     const [paginationIndex, setPaginationIndex] = useState(0)
-    const [loader, setLoader] = useState(false)
     const pagination = 30
     const formData = useSelector((state) => state.formDataReducer);
     const booksData = useSelector(state => state.booksDataReducer)
-    const url = getUrl(formData, paginationIndex)
+    const url = getUrl({ formData, paginationIndex })
 
     const loadMoreBooks = () => {
         setLoader(true)
@@ -23,19 +24,10 @@ const BooksList = ({ numberOfBooks }) => {
         getData(url)
             .then(data => {
                 dispatch(addBooksData(data.items))
-                setLoader(false)
             })
             .catch(error => console.error(error))
-
+            .finally(() => setLoader(false))
     }
-
-    useEffect(() => {
-        if (booksData.length === 0) {
-            setLoader(true)
-        } else {
-            setLoader(false)
-        }
-    }, [booksData])
 
     return (
         <section className={s.bookList}>
@@ -58,14 +50,17 @@ const BooksList = ({ numberOfBooks }) => {
                         })}
 
                 </ul>
-                {loader ? <Loader small /> : <button type="button" onClick={loadMoreBooks} className={s.bookList__loadMore}>Load more...</button>}
+                {loader ? <Loader small /> : booksData.length ? <button type="button" onClick={loadMoreBooks} className={s.bookList__loadMore}>Load more...</button> : null}
             </div>
+            <ScrollUpBtn />
         </section>
     );
 }
 
 BooksList.propTypes = {
-    numberOfBooks: PropTypes.number
+    numberOfBooks: PropTypes.number,
+    Loader: PropTypes.bool,
+    setLoader: PropTypes.func,
 }
 
 export default BooksList;

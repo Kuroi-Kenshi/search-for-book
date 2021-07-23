@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addFormData } from '@store/actions'
+
 import s from './SearchBar.module.sass';
 
 const SearchBar = () => {
@@ -19,7 +20,6 @@ const SearchBar = () => {
     const addFormDataToStore = (e) => {
         e.preventDefault()
         dispatch(addFormData(formData))
-
     }
 
     return (
@@ -27,7 +27,7 @@ const SearchBar = () => {
             <form className={s.searchBar}>
                 <div className={s.searchFieled}>
                     <input type="text" name="searchText" placeholder="Keywords" value={formData.searchText} className={s.searchFieled__input} onChange={addSearchData} required />
-                    <button type="submit" onSubmit={addFormDataToStore} className={s.searchFieled__btn}></button>
+                    <button type="submit" onClick={addFormDataToStore} className={s.searchFieled__btn}></button>
                 </div>
                 <div className={s.searchBar__selects}>
                     <label className={s.searchBar__selects_category}>
