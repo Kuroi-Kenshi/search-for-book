@@ -1,10 +1,10 @@
 export const getUrl = (...args) => {
-  const API_KEY = process.env.REACT_APP_API_KEY;
+  const API_KEY = process.env.REACT_APP_API_KEY; // YOUR API KEY
   const funcArgs = args[0];
 
   if ('id' in funcArgs) {
     const id = funcArgs.id;
-    const url = `https://www.googleapis.com/books/v1/volumes/${id}?key=AIzaSyAt4eQ8OyEnL9UDcRh9K-_ftfGvHJTiutg`;
+    const url = `https://www.googleapis.com/books/v1/volumes/${id}?key=${API_KEY}`;
     return url;
   }
   if ('paginationIndex' in funcArgs || 'formData' in funcArgs) {

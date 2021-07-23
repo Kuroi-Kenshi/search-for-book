@@ -1,0 +1,6 @@
+FROM node:12.2.0-alpine as build
+WORKDIR /app
+COPY . .
+RUN yarn --silent
+EXPOSE 80
+CMD ["yarn", "start"]
