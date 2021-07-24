@@ -2,6 +2,7 @@ import {
   ADD_BOOKS_DATA,
   CLEAR_BOOKS_DATA,
   ADD_FORM_DATA,
+  ERROR_API_STATUS,
 } from '@store/constants/actionTypes';
 
 export const addBooksData = (data) => ({
@@ -16,4 +17,9 @@ export const addFormData = (data) => ({
 
 export const clearBooksData = () => ({
   type: CLEAR_BOOKS_DATA,
+});
+
+export const setErrorApiStatus = (status) => ({
+  type: ERROR_API_STATUS,
+  payload: status,
 });

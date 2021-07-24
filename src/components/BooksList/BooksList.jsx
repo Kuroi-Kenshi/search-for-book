@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getData } from '@utils/network';
 import { getUrl } from '@utils/getUrl';
+import { withErrorApi } from '@hoc-helpers/withErrorApi';
 import { addBooksData } from '@store/actions';
 import BookCard from '@components/BookCard'
 import Loader from '@components/Loader'
@@ -16,8 +17,9 @@ const BooksList = ({ numberOfBooks, loader, setLoader }) => {
     const pagination = 30
     const formData = useSelector((state) => state.formDataReducer);
     const booksData = useSelector(state => state.booksDataReducer)
+    const errorApiStatus = useSelector(state => state.errorApiStatusReducer)
     const url = getUrl({ formData, paginationIndex })
-
+    console.log(errorApiStatus);
     const loadMoreBooks = () => {
         setLoader(true)
         setPaginationIndex(prev => prev + pagination)
@@ -63,4 +65,4 @@ BooksList.propTypes = {
     setLoader: PropTypes.func,
 }
 
-export default BooksList;
+export default withErrorApi(BooksList);

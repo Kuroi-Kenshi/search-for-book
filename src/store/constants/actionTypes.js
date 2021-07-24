@@ -1,3 +1,4 @@
 export const ADD_BOOKS_DATA = 'ADD_BOOKS_DATA';
 export const ADD_FORM_DATA = 'ADD_FORM_DATA';
 export const CLEAR_BOOKS_DATA = 'CLEAR_BOOKS_DATA';
+export const ERROR_API_STATUS = 'ERROR_API_STATUS';

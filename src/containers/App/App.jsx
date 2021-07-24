@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from '@components/Header';
 import BooksList from '@components/BooksList';
 import BookDescription from '@components/BookDescription';
-import { addBooksData, clearBooksData } from '@store/actions';
+import { addBooksData, clearBooksData, setErrorApiStatus } from '@store/actions';
 import { getData } from '@utils/network';
 import { getUrl } from '@utils/getUrl';
 
@@ -27,7 +27,10 @@ function App() {
           dispatch(addBooksData(data.items));
         }
       })
-      .catch((error) => console.error(error))
+      .catch((error) => {
+        console.error(`Could not fetch, ${error}`);
+        dispatch(setErrorApiStatus({ status: true, type: error }))
+      })
       .finally(() => setLoader(false));
   }, [formData]);
 
