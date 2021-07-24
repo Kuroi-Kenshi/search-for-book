@@ -20,6 +20,7 @@ function App() {
   useEffect(() => {
     setLoader(true);
     dispatch(clearBooksData());
+    dispatch(setErrorApiStatus({ status: false }))
     getData(url)
       .then((data) => {
         setNumberOfBooks(data.totalItems);
